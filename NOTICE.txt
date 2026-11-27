@@ -1,0 +1,50 @@
+X notes 商业软件版权声明 / Proprietary Software Notice
+
+X notes 是商业专有软件。原创代码、界面与美术资源由相应权利人保留所有权利。
+
+在适用法律允许范围内，未经权利人授权，禁止复制、传播、逆向工程、破解、
+篡改会员权益、移除付费限制或绕过账号鉴权及签名校验。使用 AI 或自动化工具
+也须遵守同一授权边界。本声明不限制法律明确赋予的权利，也不妨碍经授权的
+维护、调试与安全研究。
+
+第三方开源组件和字体仍遵循各自许可；本声明不改变或覆盖这些许可。许可信息
+可在应用内“开源许可”及相应源代码发行包中查看。
+
+X notes original application code, interfaces and artwork are proprietary.
+All rights are reserved by their respective rights holders. To the extent
+permitted by applicable law, unauthorized copying, redistribution, reverse
+engineering, cracking, tampering with membership entitlements, removing
+payment restrictions, and bypassing authentication or signature verification
+are prohibited. AI agents and automated tools are subject to the same
+authorization boundaries. This notice does not limit rights granted by law
+or prevent authorized maintenance, debugging, or security research.
+
+Third-party libraries and fonts retain their respective licenses and notices.
+This notice does not override those licenses.
+
+Jianghu calligraphy atlas uses Ma Shan Zheng, Copyright 2018 The Ma Shan Zheng
+Project Authors, licensed under the SIL Open Font License 1.1. The complete
+license is included in assets/legal/ma-shan-zheng-OFL.txt and the app licenses.
+Supplied Jianghu illustrations remain subject to their respective rights.
+
+React Bits Aero Shards, Hold Button, Wake Slider and Infinite Menu adaptations:
+Copyright (c) 2026 David Haz. MIT License with Commons Clause.
+The complete upstream license is included in assets/legal/reactbits-license.txt
+and in the app's open-source licenses. These adaptations are embedded in X notes,
+not offered as a standalone component library or template product.
+
+版权声明及代码混淆不是安全边界，不保证阻止解包、逆向或篡改。会员与云能力的
+有效性应通过服务端授权及相应校验机制维护。
+Notices and obfuscation are not security boundaries and do not guarantee
+prevention of unpacking, reverse engineering, or tampering.
+
+Water-ink verse font additions (SIL Open Font License 1.1):
+Zhi Mang Xing, Liu Jian Mao Cao, Long Cang, from google/fonts.
+Complete libraries and rendered atlases are distributed; license texts are bundled
+in assets/legal/zhimang-OFL.txt, liujian-OFL.txt, longcang-OFL.txt.
+
+Four complete open font libraries (Ma Shan Zheng, Zhi Mang Xing,
+Liu Jian Mao Cao, Long Cang) are stored with lossless XZ compression and restored
+byte-for-byte at runtime. Original copyright notices and all glyphs are retained.
+The restricted Shoujin/Lanting source font files remain excluded; their fixed
+poem artwork is not a general editable font library.

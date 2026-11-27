@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X notes v3.4.3 — 把灵感，装订成一本会呼吸的藏书</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <canvas id="cursor-trail-canvas" aria-hidden="true"></canvas>
+
+  <!-- 高清截图Pop放大灯箱 -->
+  <div id="pop-lightbox" class="pop-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-card">
+      <button id="lightbox-close" type="button" class="lightbox-close" aria-label="关闭大图预览">✕</button>
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="./assets/shelf.png" alt="高清界面预览" />
+      </div>
+      <div class="lightbox-meta">
+        <span class="pill-sticker pill-lime">REAL APP CAPTURE</span>
+        <h3 id="lightbox-title">高清实机预览</h3>
+        <p id="lightbox-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 会员礼花浮动 Toast -->
+  <div id="pro-toast-banner" class="pro-toast" role="status" aria-live="polite">
+    <span class="toast-spark">🎉</span>
+    <div>
+      <strong>恭喜，Pro 已开通</strong>
+      <small>会员权益与 30 MiB 加密备份空间已就绪（演示彩蛋 · 真实订单仅验签触发）</small>
+    </div>
+  </div>
+
+  <!-- 顶部潮流导航与互动控制条 -->
+  <header class="pop-header">
+    <div id="scroll-progress-bar" class="scroll-progress"></div>
+    <div class="header-inner">
+      <a href="#top" class="brand-badge">
+        <img src="./assets/hero_x_mark.png" alt="X notes" />
+        <span>X notes</span>
+        <em class="ver-pill">v3.4.3+63</em>
+      </a>
+      <nav class="header-nav" aria-label="主要章节">
+        <a href="#act-dye">3 大封皮实录</a>
+        <a href="#act-shelf">4 维真书架</a>
+        <a href="#act-magic">8 笔刷与黑科技</a>
+        <a href="#act-offline">分屏研学与离线</a>
+        <a href="#act-jianghu">真实着色器与江湖</a>
+        <a href="#act-personas">剧本与彩蛋机</a>
+        <a href="#act-plans">定价发行</a>
+      </nav>
+      <div class="header-toys">
+        <button id="toggle-trail-btn" class="toy-btn is-on" type="button">✒️ 墨迹跟随：开</button>
+        <button id="global-confetti-btn" class="toy-btn toy-pink" type="button">🎉 撒花狂欢</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ==================== ACT 1: HERO 自然阅读俯仰 32x10 8跨页书本 ==================== -->
+    <section class="act-hero">
+      <div class="hero-split-bg" aria-hidden="true">
+        <div class="bg-cobalt"></div>
+        <div class="bg-vermilion"></div>
+        <div class="hero-speed-rays"></div>
+        <div class="risograph-dots"></div>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="hero-badges pop-reveal">
+            <span class="pill-sticker pill-lime">V3.4.3 NEW LAUNCH</span>
+            <span class="pill-sticker pill-cream">THREE.JS 32×10 曲页物理翻页</span>
+            <span class="pill-sticker pill-mint">LOCAL-FIRST 零云偷看</span>
+          </div>
+
+          <div class="hero-title-wrap">
+            <h1 class="hero-brand-name">X notes</h1>
+            <button type="button" class="brush-callout brush-hero pop-stamp-trigger" data-splash="#3BFFA8" title="点我爆墨!">会呼吸!</button>
+          </div>
+
+          <h2 class="hero-headline pop-reveal">把灵感，装订成<br />一本<span class="headline-swash-wrap">专属藏书<svg class="hero-brush-swash" viewBox="0 0 240 24" aria-hidden="true"><path d="M4,16 Q72,4 148,14 T236,8" fill="none" stroke="#DCFF00" stroke-width="8" stroke-linecap="round"/><path d="M8,18 Q76,7 150,16 T234,11" fill="none" stroke="#121116" stroke-width="3" stroke-linecap="round"/></svg></span>。</h2>
+          <p class="hero-lead pop-reveal">
+            正视案头的自然阅读角度！右侧运行复刻 <strong>BookScenePainter (32×10 曲页物理网格)</strong> 的 Three.js 翻页书本——拖动书角或点按钮翻阅全部 <strong>8 个完整功能跨页（16 页）</strong>，亲手摸到实实在在的纸页弯折与装订厚度！
+          </p>
+
+          <div class="hero-actions pop-reveal">
+            <a href="#act-dye" class="cta-pop cta-lime magnetic-btn">⚡ 看实机 3 种封面着墨对比</a>
+            <button id="hero-flip-cta" type="button" class="cta-pop cta-cream magnetic-btn">📖 翻开下一页介绍 ↓</button>
+          </div>
+
+          <div class="hero-stats-box pop-reveal">
+            <div><strong>32×10 曲页 · 4 书架</strong><span>莫兰迪精装书脊 × ∞总览</span></div>
+            <div><strong>原样 PDF · 并排抽屉</strong><span>遮挡记忆卡 · 汇编可搜 PDF</span></div>
+            <div><strong>0 KB 自动传云</strong><span>CRC-32 / SHA-256 双核校验</span></div>
+          </div>
+        </div>
+
+        <div class="hero-stage-col">
+          <div class="hero-starburst" aria-hidden="true"></div>
+          <div class="hero-orbit-ring" aria-hidden="true"></div>
+          <div id="hero-webgl-wrap" class="webgl-book-wrap">
+            <canvas id="hero-book-webgl" aria-label="Three.js 3D 物理翻页书本，支持拖拽或点击翻阅全部 8 跨页"></canvas>
+            <div class="floating-x-badge"><img src="./assets/hero_x_mark.png" alt="X badge" /></div>
+            <div class="webgl-drag-hint">🖱️ 左右拖书页搓页，或点击翻阅 8 跨页 / 16 页全功能图谱</div>
+            <div class="book-controls">
+              <button id="btn-flip-prev" type="button" class="pill-ctrl">← 上一跨页</button>
+              <div id="book-dots" class="book-dots" aria-label="跨页索引"></div>
+              <span id="book-page-num" class="page-counter">01 / 08</span>
+              <button id="btn-flip-next" type="button" class="pill-ctrl pill-ctrl-accent">翻下一跨页 →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pop-marquee-wrap" aria-hidden="true">
+        <div class="pop-marquee-track">
+          <span>✦ THREE.JS 32×10 真实曲页</span>
+          <span>✦ 实机三种黑白封面 GLSL 显色</span>
+          <span>✦ 四套莫兰迪三维书架与莫比乌斯纸带</span>
+          <span>✦ 8 大物理压感笔刷实时试笔</span>
+          <span>✦ Android 仅擦荧光黑科技</span>
+          <span>✦ 0 KB 端侧 OCR 与双哈希防损</span>
+          <span>✦ 二十七重水墨江湖绘卷</span>
+          <span>✦ THREE.JS 32×10 真实曲页</span>
+          <span>✦ 实机三种黑白封面 GLSL 显色</span>
+          <span>✦ 四套莫兰迪三维书架与莫比乌斯纸带</span>
+          <span>✦ 8 大物理压感笔刷实时试笔</span>
+          <span>✦ Android 仅擦荧光黑科技</span>
+          <span>✦ 0 KB 端侧 OCR 与双哈希防损</span>
+          <span>✦ 二十七重水墨江湖绘卷</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 2: 实机封面着墨真录 × 源码级 infinite_book_entry.frag ==================== -->
+    <section id="act-dye" class="act-section act-purple">
+      <div class="risograph-dots dots-mint"></div>
+      <div class="bg-geo-layer" aria-hidden="true">
+        <svg class="kinetic-gear gear-tr" viewBox="0 0 200 200">
+          <polygon points="100,6 116,44 152,20 148,60 190,62 164,96 196,126 156,136 168,176 126,162 110,196 86,164 46,184 54,142 12,138 40,104 8,74 48,64 36,24 78,38" fill="none" stroke="#3BFFA8" stroke-width="3" stroke-dasharray="8 6" />
+        </svg>
+        <div class="kinetic-seal-spin seal-act2">
+          <svg class="seal-star-bg" viewBox="0 0 100 100"><polygon points="50,2 62,32 95,22 74,48 98,70 64,74 68,98 44,78 16,94 28,62 2,52 32,38" fill="#FF1F7A" stroke="#121116" stroke-width="2.5"/></svg>
+          <svg class="seal-text-ring" viewBox="0 0 200 200">
+            <defs><path id="tp-act2" d="M 32,100 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0"/></defs>
+            <text><textPath href="#tp-act2">★ REAL FLUTTER SHADER ★ CLICK TO REPLAY ★</textPath></text>
+          </svg>
+          <span class="seal-core">🎨</span>
+        </div>
+      </div>
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-lime">ACT 02 · TRUE FLUTTER SHADER + REAL CAPTURE</span>
+            <span class="tech-tag">INFINITE_BOOK_ENTRY.FRAG × REAL APP CLIPS</span>
+          </div>
+          <div class="head-title-row">
+            <h2 class="section-title text-cream">看实机真实效果！点选右侧三张卡片，左侧 3D 书本立即演绎对应的黑白显色过程</h2>
+            <button type="button" class="brush-callout brush-lime brush-tilt-r pop-stamp-trigger" data-splash="#DCFF00">醒!</button>
+          </div>
+          <p class="section-sub text-lilac">拒绝假效果！左侧直接以原幅书封展示<strong>「🎬 安卓真机原生录屏」</strong>与<strong>「🎛️ 逐行移植 infinite_book_entry.frag 真实 GLSL」</strong>——每次播放完整遍染即定格成画，点击「重播开本」或轻触封面即可再次演绎！</p>
+        </div>
+
+        <div class="dye-lab-grid">
+          <!-- 左侧双引擎舞台（原幅书封展示：不二次缩小，点击重播） -->
+          <div class="dye-playground-card">
+            <div class="dye-toolbar">
+              <div class="dye-modes" role="tablist">
+                <button type="button" class="dye-mode-btn" data-mode="gauss">🎨 01 · 高斯晕染</button>
+                <button type="button" class="dye-mode-btn is-active" data-mode="drops">💧 02 · 22 颗水滴</button>
+                <button type="button" class="dye-mode-btn" data-mode="spark">✨ 03 · 晶格闪点</button>
+              </div>
+              <div class="dye-ops">
+                <button id="dye-engine-real" type="button" class="mini-op-btn op-lime is-active">📺 实机原生实录</button>
+                <button id="dye-engine-glsl" type="button" class="mini-op-btn">🎛️ WebGL GLSL 源码交互</button>
+                <button id="dye-replay-btn" type="button" class="mini-op-btn op-replay">↻ 点击重播开本</button>
+              </div>
+            </div>
+
+            <div class="dye-stage-container">
+              <div id="dye-ambient-aura" class="dye-ambient-aura is-drops" aria-hidden="true"></div>
+              <!-- 模式 A：左侧全幅无黑边真机封面实录（严丝合缝铺满书框，播完即止） -->
+              <div id="dye-video-rig" class="dye-video-rig is-active">
+                <div class="real-book-frame" title="点击封面从头重播一次">
+                  <video id="dye-real-video" src="./assets/clips/dye_drops_real.mp4" muted playsinline preload="auto"></video>
+                  <button id="dye-cover-replay-pill" type="button" class="dye-cover-replay-pill">↻ 显色完成 · 点击封面重播</button>
+                </div>
+                <span id="dye-video-badge" class="dye-live-badge">REAL APP CAPTURE // MODE 02 · 22 颗 3D 水滴落纸晕开</span>
+              </div>
+
+              <!-- 模式 B：1:1 移植 shaders/infinite_book_entry.frag 的 WebGL 满屏书封 -->
+              <div id="dye-glsl-rig" class="dye-glsl-rig">
+                <div class="glsl-book-frame" title="点击画布重播一次显色">
+                  <canvas id="dye-book-webgl"></canvas>
+                  <button id="dye-glsl-replay-pill" type="button" class="dye-cover-replay-pill">↻ GLSL 已 100% 成画 · 点击重播</button>
+                </div>
+                <div class="glsl-scrub-bar">
+                  <label>uColour 显色进度：<strong id="ucolour-val">48%</strong>
+                    <input id="ucolour-slider" type="range" min="0" max="100" value="48" />
+                  </label>
+                  <button id="ucolour-autoplay" type="button" class="tiny-reset-btn">↻ 从零重播一次</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="dye-status" class="dye-status-bar">
+              正在展示：<strong>Mode 02 · 22 颗 3D 玻璃水滴落纸</strong> — 点击封面或上方「↻ 点击重播开本」单次重放；不会无限自动循环。
+            </div>
+          </div>
+
+          <!-- 右侧可点选三张效果介绍卡 -->
+          <div class="dye-cards-stack">
+            <article class="pop-card card-cream dye-select-card" data-mode="gauss" tabindex="0" role="button">
+              <div class="card-img-zoom">
+                <img src="./assets/dye_gauss.png" alt="高斯晕染" class="thumb-circle thumb-pink" />
+                <span class="zoom-lens" data-lightbox="./assets/dye_gauss.png" data-title="Mode 01 · 高斯颜料晕染" data-desc="多核椭圆水彩沿棉纸纹理扩散，将黑白线稿柔和唤醒成饱满彩色封面。">🔍</span>
+              </div>
+              <div class="card-body-rel">
+                <span class="badge-mini badge-mint">MODE 01 · 点击切换左屏渲染 ➔</span>
+                <h3>高斯颜料晕染（gaussianColour）</h3>
+                <p>从素白/黑白画面起笔，8 枚独立椭圆水彩墨团依次扩散融合，温柔染亮整张封面底画。</p>
+                <span class="card-play-pill">▶ 点击看左侧播放高斯晕染实录</span>
+              </div>
+            </article>
+
+            <article class="pop-card card-pink dye-select-card is-selected" data-mode="drops" tabindex="0" role="button">
+              <div class="card-img-zoom">
+                <img src="./assets/dye_drops.png" alt="22颗水滴" class="thumb-circle thumb-lime" />
+                <span class="zoom-lens" data-lightbox="./assets/dye_drops.png" data-title="Mode 02 · 22 颗 3D 水滴泼溅" data-desc="22 颗 3D 水珠落下并吸收底部封面原本色彩，形成潮汐湿润染圈与斯涅尔折射。">🔍</span>
+              </div>
+              <div class="card-body-rel">
+                <span class="badge-mini badge-cream">MODE 02 · 正在播放实录 ★</span>
+                <h3>22 颗 3D 水滴泼溅（waterDrops）</h3>
+                <p>22 颗凸起玻璃水珠自带吸色属性，砸落黑白封面后折射下方真彩细节，湿润晕圈化开直到整页上色。</p>
+                <span class="card-play-pill">▶ 点击重播水滴泼溅效果</span>
+              </div>
+            </article>
+
+            <article class="pop-card card-cream dye-select-card" data-mode="spark" tabindex="0" role="button">
+              <div class="card-img-zoom">
+                <img src="./assets/dye_spark.png" alt="晶格闪点" class="thumb-circle thumb-cyan" />
+                <span class="zoom-lens" data-lightbox="./assets/dye_spark.png" data-title="Mode 03 · 晶格闪点波前显色" data-desc="相干噪声场带动上千颗青金晶格闪点微粒横扫封面，点亮底层原色。">🔍</span>
+              </div>
+              <div class="card-body-rel">
+                <span class="badge-mini badge-pink">MODE 03 · 点击切换左屏渲染 ➔</span>
+                <h3>晶格闪点波前（reconstruct）</h3>
+                <p>142 格细腻微观方阵随相干波前闪烁亮起，青金星尘掠过黑白封面之处瞬间重现全部色彩。</p>
+                <span class="card-play-pill">▶ 点击看左侧播放闪点波前实录</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 3: 1:1 真实 Morandi 书封建模 3D 四书架 + 360° 精装书 ==================== -->
+    <section id="act-shelf" class="act-section act-cream">
+      <div class="risograph-dots dots-blue"></div>
+      <div class="bg-geo-layer" aria-hidden="true">
+        <div class="kinetic-seal-spin seal-act3">
+          <svg class="seal-star-bg" viewBox="0 0 100 100"><polygon points="50,0 60,30 92,15 74,45 100,60 72,72 80,100 50,82 20,100 28,72 0,60 26,45 8,15 40,30" fill="#DCFF00" stroke="#121116" stroke-width="2.5"/></svg>
+          <svg class="seal-text-ring" viewBox="0 0 200 200">
+            <defs><path id="tp-act3" d="M 32,100 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0"/></defs>
+            <text><textPath href="#tp-act3">◆ MORANDI PRESS ◆ 24 PAGES RIBBON ◆</textPath></text>
+          </svg>
+          <span class="seal-core">📚</span>
+        </div>
+        <div class="float-geo geo-tri" style="left:28px;top:360px"></div>
+        <div class="float-geo geo-diamond" style="right:32px;bottom:90px"></div>
+      </div>
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-cobalt">ACT 03 · FAITHFUL BOOKCOVERPAINTER SHELVES &amp; 360° PRESS</span>
+            <span class="tech-tag text-ink">AUTHENTIC MORANDI SPINES + ORBIT REEL + 24-PAGE MÖBIUS RIBBON</span>
+          </div>
+          <div class="head-title-row">
+            <h2 class="section-title text-ink">真实 Morandi 立体书脊四维书架 × 360° 私人独立出版工坊</h2>
+            <button type="button" class="brush-callout brush-tomato brush-tilt-l pop-stamp-trigger" data-splash="#00D1FF">造书!</button>
+          </div>
+        </div>
+
+        <div class="shelf-showcase-panel pop-reveal">
+          <div class="shelf-tabs" role="tablist">
+            <button type="button" class="shelf-tab is-active" data-shelf="classic">
+              <em>01</em><div><strong>经典立体书架</strong><span>暖灰展台 × 弧面书脊实体书</span></div>
+            </button>
+            <button type="button" class="shelf-tab" data-shelf="simple">
+              <em>02</em><div><strong>简洁液态玻璃</strong><span>清透灰绿 × 胶囊直达续写</span></div>
+            </button>
+            <button type="button" class="shelf-tab" data-shelf="orbit">
+              <em>03</em><div><strong>3D 星轨轮盘 (Android)</strong><span>暗夜舞台 · 轮盘 ⇄ 弧线切换</span></div>
+            </button>
+            <button type="button" class="shelf-tab" data-shelf="depth">
+              <em>04</em><div><strong>∞ 24 页莫比乌斯总览 (Android)</strong><span>真笔记页沿 8 字双纽线飞驰</span></div>
+            </button>
+          </div>
+
+          <div class="shelf-dual-stage">
+            <div class="shelf-webgl-box">
+              <canvas id="shelf-3d-webgl"></canvas>
+              <div class="shelf-mode-overlay-btns">
+                <button id="shelf-sub-toggle" type="button" class="tiny-reset-btn" style="background:#DCFF00;display:none">🔄 切换轮盘 ⇄ 弧线</button>
+                <button id="depth-ride-toggle" type="button" class="tiny-reset-btn" style="background:#3BFFA8;display:none">🎥 切到近景纸带伴飞 (Ride)</button>
+              </div>
+              <span class="webgl-corner-tag">实机 BookCoverPainter &amp; DepthRibbon 精确建模 · 拖拽旋视角</span>
+            </div>
+
+            <div class="shelf-copy-side">
+              <div class="shelf-real-thumb" data-tilt-card>
+                <img id="shelf-preview-img" src="./assets/shelf.png" alt="X notes 实机书架截图" />
+                <button id="shelf-zoom-btn" type="button" class="pop-zoom-pill">🔍 查看实机全屏对比图</button>
+              </div>
+              <div class="shelf-copy-box">
+                <span id="shelf-tag" class="pill-sticker pill-lime">01 // 经典立体桌面（暖灰画廊灯光）</span>
+                <h3 id="shelf-title">还原莫兰迪布纹书脊与封面插画</h3>
+                <p id="shelf-desc">严格按照源码 BookCoverPainter 绘制《日常随记》《灵感手札》《旅行片段》真书皮与棉麻/皮革书脊纹理；拖动鼠标即可交互检视书排与空间深度。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="press-workshop-grid">
+          <div class="workshop-left pop-reveal">
+            <div class="spin-controls">
+              <button type="button" class="spin-tab is-active" data-angle="cover">🎨 正面封面</button>
+              <button type="button" class="spin-tab" data-angle="spine">📏 竖排书脊</button>
+              <button type="button" class="spin-tab" data-angle="back">🏷️ 360° 封底</button>
+              <button type="button" class="spin-tab" data-angle="interior">📖 3.4.3 内页对比</button>
+            </div>
+            <div class="spin-webgl-stage">
+              <canvas id="book360-webgl"></canvas>
+              <button type="button" class="pop-zoom-pill pill-top-r" data-lightbox="./assets/interior.png" data-title="3.4.3 样书开合与全本格式" data-desc="点击设计封面→内页，实机中实时翻开样书对比全本字体与网格密度。">🔍 实机内页设计界面</button>
+            </div>
+            <p id="spin-caption" class="spin-note">🖱️ 按住鼠标左键自由 360° 转动这本精装笔记本，细致查看正面太阳弧纹、皮革缝线书脊与留白封底！</p>
+          </div>
+
+          <div class="workshop-right pop-reveal">
+            <div class="workshop-hdr">
+              <span class="pill-sticker pill-pink">LIVE PAPER &amp; FONT STUDIO</span>
+              <h3>内页纸纹四重奏 × 双滑杆实时克度试炼</h3>
+            </div>
+            <div class="paper-controls">
+              <div class="paper-types">
+                <button type="button" class="paper-tab" data-pat="blank">空白</button>
+                <button type="button" class="paper-tab" data-pat="lined">横线</button>
+                <button type="button" class="paper-tab is-active" data-pat="grid">方格</button>
+                <button type="button" class="paper-tab" data-pat="dot">点阵</button>
+              </div>
+              <div class="sliders-row">
+                <label>纹理深浅 <strong id="val-opacity">52%</strong>
+                  <input id="slider-opacity" type="range" min="15" max="100" value="52" />
+                </label>
+                <label>网格密度 <strong id="val-density">55%</strong>
+                  <input id="slider-density" type="range" min="25" max="100" value="55" />
+                </label>
+              </div>
+            </div>
+
+            <div class="paper-live-wrap">
+              <canvas id="paper-canvas" width="640" height="220"></canvas>
+            </div>
+
+            <div class="font-selector-row">
+              <button type="button" class="font-chip is-active" data-font="BMaShan"><strong>马善政 · 楷书</strong><span>春风得意</span></button>
+              <button type="button" class="font-chip" data-font="BZhiMang"><strong>志莽 · 行书</strong><span>行云流水</span></button>
+              <button type="button" class="font-chip" data-font="BLiuJian"><strong>刘建 · 毛草</strong><span>笔走龙蛇</span></button>
+              <button type="button" class="font-chip" data-font="BLongCang"><strong>龙藏 · 草书</strong><span>山高水长</span></button>
+            </div>
+            <p class="font-legal-hint">内置 4 款可商用开源书法字库，支持导入个人本地 TTF / OTF（≤ 32 MB，仅留在本机绝不外传）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pop-marquee-wrap marquee-alt-cyan" aria-hidden="true">
+        <div class="pop-marquee-track track-reverse">
+          <span>★ 360° 硬壳精装立体建模</span>
+          <span>★ 四套实机 Morandi 书架</span>
+          <span>★ 8 大物理压感真实笔刷</span>
+          <span>★ Android 仅擦荧光双层橡皮</span>
+          <span>★ 一笔成形矢量识别</span>
+          <span>★ 可拖动花边纸胶带</span>
+          <span>★ 360° 硬壳精装立体建模</span>
+          <span>★ 四套实机 Morandi 书架</span>
+          <span>★ 8 大物理压感真实笔刷</span>
+          <span>★ Android 仅擦荧光双层橡皮</span>
+          <span>★ 一笔成形矢量识别</span>
+          <span>★ 可拖动花边纸胶带</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 4: 笔夹三边停靠 + 8 大真实质感试笔台 + 搜索加星 + 3 大魔法画布 ==================== -->
+    <section id="act-magic" class="act-section act-cyan">
+      <div class="risograph-dots dots-cream"></div>
+      <div class="bg-geo-layer" aria-hidden="true">
+        <div class="float-geo geo-ring" style="left:22px;top:140px"></div>
+        <div class="float-geo geo-burst-mini" style="right:40px;top:410px">✦</div>
+        <div class="float-geo geo-zig" style="left:16px;bottom:84px"></div>
+      </div>
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-ink">ACT 04 · 8 PHYSICAL BRUSHES &amp; MAGIC CANVAS</span>
+            <span class="tech-tag text-ink">5 INTERACTIVE WIDGETS: DOCK + 8 BRUSHES + STAR SEARCH + SHAPE + ERASER + TAPE</span>
+          </div>
+          <div class="head-title-row">
+            <h2 class="section-title text-ink">细节拉满的书写实验室：左/右/底三侧笔夹 × 8 物理质感试笔 × 黑科技擦除</h2>
+            <button type="button" class="brush-callout brush-pink brush-tilt-r pop-stamp-trigger" data-splash="#DCFF00">直净弹!</button>
+          </div>
+        </div>
+
+        <!-- 小组件 1：笔夹小白条折叠 + 左/右/底三侧停靠 + 中文搜索加星置顶 -->
+        <div class="dock-tutorial-bar pop-reveal">
+          <div class="dock-copy">
+            <span class="pill-sticker pill-cobalt">CORE TUTORIAL #1 · 永久置顶交互 + 搜索收藏</span>
+            <h3>聪明的大笔夹：左 / 右 / 底三边随心停靠，搜到工具一颗星星直接置顶！</h3>
+            <div class="dock-side-btns">
+              <button type="button" class="tiny-reset-btn is-on dock-pos-btn" data-pos="left">⬅️ 靠左停靠</button>
+              <button type="button" class="tiny-reset-btn dock-pos-btn" data-pos="right">➡️ 靠右（左手友好）</button>
+              <button type="button" class="tiny-reset-btn dock-pos-btn" data-pos="collapsed">⬇️ 点小白条收起</button>
+            </div>
+            <!-- 迷你中文搜索加星置顶模拟器 -->
+            <div class="multifunc-star-sim">
+              <span class="mf-search-pill">🔍 多功能搜：<b>纸质贴纸</b></span>
+              <button id="star-pin-btn" type="button" class="star-pin-btn" title="点击加星收藏到顶栏">☆ 加星置顶</button>
+              <span id="star-pinned-badge" class="star-pinned-badge">✓ 已挂到书名旁！一秒触发</span>
+            </div>
+            <div class="dock-extra-thumbs">
+              <div class="thumb-zoom-box" data-tilt-card data-lightbox="./assets/tut_favorites.png" data-title="多功能中文直搜加星置顶" data-desc="搜出工具点五角星收藏，直接挂在顶部书名旁随时一秒呼出。">
+                <img src="./assets/tut_favorites.png" alt="多功能搜索与五角星收藏" /><span>🔍 搜工具置顶</span>
+              </div>
+              <div class="thumb-zoom-box" data-tilt-card data-lightbox="./assets/tut_quick_brushes.png" data-title="64 组快捷笔刷预设栏" data-desc="存储常用颜色与线宽组合，像换弹匣一样一键无痛切笔。">
+                <img src="./assets/tut_quick_brushes.png" alt="底部64组快捷预设栏" /><span>🔍 64组预设</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="dock-demo" class="dock-phone-sim">
+            <div class="sim-paper-zone">
+              <span class="sim-status">试试左靠 / 右靠 / 点小白条折叠到底部 👇</span>
+              <div class="sim-page-canvas">
+                <p id="sim-header-pin" class="sim-header-pin">📓 灵感手札 <em id="pinned-mini-icon">🏷️ 贴纸已置顶</em></p>
+                <p style="margin:6px 0 0;font-size:12px;color:#555">点击任意边缘小白条体验弹性伸缩与 64 组预设锚定！</p>
+              </div>
+            </div>
+            <div class="sim-big-dock">
+              <img src="./assets/left_tools.png" alt="大笔夹工具列" />
+              <button id="dock-toggle-bar" type="button" class="white-pill-grabber" title="点此折叠笔夹小白条">
+                <span>小白条 · 收起</span>
+              </button>
+            </div>
+            <button id="dock-bottom-restore" type="button" class="sim-bottom-capsule">
+              <span>已锚定底部多功能旁 · 点我弹性恢复 ▲</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 小组件 2：8 大真实物理质感笔刷实时手写试笔台 -->
+        <div class="brush-bench-card pop-reveal">
+          <div class="bench-head">
+            <div>
+              <span class="pill-sticker pill-lime">8 大物理质感笔刷 v2 · 真实材质手写试笔台</span>
+              <p>挑选任意笔刷并在右侧浅米纸面自由划线（石墨铅笔颗粒、水彩半透渲染、荧光宽带、毛笔速度变细均有表现）！</p>
+            </div>
+            <button id="brush-bench-clear" type="button" class="tiny-reset-btn">🧽 清空试笔画纸</button>
+          </div>
+          <div class="bench-grid">
+            <div class="bench-picker">
+              <button type="button" class="brush-type-btn is-active" data-brush="fountain">✒️ 钢笔</button>
+              <button type="button" class="brush-type-btn" data-brush="needle">📏 针管笔</button>
+              <button type="button" class="brush-type-btn" data-brush="pencil">✏️ 铅笔 (石墨颗粒)</button>
+              <button type="button" class="brush-type-btn" data-brush="crayon">🖍️ 蜡笔 (粗粝断纹)</button>
+              <button type="button" class="brush-type-btn" data-brush="highlighter">🟨 荧光笔 (叠层穿透)</button>
+              <button type="button" class="brush-type-btn" data-brush="calligraphy">🖌️ 毛笔 (速度挑锋)</button>
+              <button type="button" class="brush-type-btn" data-brush="watercolor">🎨 水彩 (湿润半透)</button>
+              <button type="button" class="brush-type-btn" data-brush="oil">🖼️ 油画棒 (厚涂笔触)</button>
+            </div>
+            <div class="bench-pad-wrap">
+              <canvas id="brush-bench-canvas" width="760" height="170"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 小组件 3/4/5：一笔成形 / 仅擦荧光 / 可拖动纸胶带与待办 -->
+        <div class="three-trials-grid">
+          <article class="trial-card card-cream pop-reveal" data-tilt-card>
+            <div class="trial-head">
+              <span class="badge-mini badge-cobalt">TRIAL 01 · 一笔成形</span>
+              <button type="button" id="shape-clear-btn" class="tiny-reset-btn">清空重写</button>
+            </div>
+            <h3>手抖画歪？松手秒变矢量几何</h3>
+            <div class="canvas-well"><canvas id="trial-shape-canvas" width="360" height="220"></canvas></div>
+            <div class="trial-presets">
+              <button type="button" class="shape-preset-btn" data-shape="line">抖直线</button>
+              <button type="button" class="shape-preset-btn" data-shape="arrow">歪箭头</button>
+              <button type="button" class="shape-preset-btn" data-shape="tri">歪三角</button>
+              <button type="button" class="shape-preset-btn" data-shape="circle">歪圆圈</button>
+            </div>
+            <p id="shape-result-label" class="trial-foot">自由手画线 / 箭头(带钩) / 三角 / 圆，或点击上方预设演示！</p>
+          </article>
+
+          <article class="trial-card card-lime pop-reveal" data-tilt-card>
+            <div class="trial-head">
+              <span class="badge-mini badge-pink">TRIAL 02 · 只擦荧光</span>
+              <button type="button" id="eraser-reset-btn" class="tiny-reset-btn">恢复荧光</button>
+            </div>
+            <h3>Android 仅擦荧光双层橡皮</h3>
+            <div class="canvas-well well-eraser"><canvas id="trial-eraser-canvas" width="360" height="220"></canvas></div>
+            <p id="eraser-progress-label" class="trial-foot">已擦除荧光：<strong>0%</strong> · 底墨保留率：<strong>100%</strong></p>
+          </article>
+
+          <article class="trial-card card-cream pop-reveal" data-tilt-card>
+            <div class="trial-head">
+              <span class="badge-mini badge-ink">TRIAL 03 · 胶带与待办</span>
+              <button type="button" id="tape-color-btn" class="tiny-reset-btn">换胶带配色</button>
+            </div>
+            <h3>可拖动纸胶带 + 弹簧待办</h3>
+            <div id="washi-playground" class="washi-playground">
+              <div id="draggable-tape" class="washi-tape">○ ○ 按住我拖动 · 双击调角度 ○ ○</div>
+              <label class="todo-check-item is-checked"><input type="checkbox" checked /><span class="chk-box">✓</span><span class="chk-txt">整理第 3 章考研错题汇编</span></label>
+              <label class="todo-check-item"><input type="checkbox" /><span class="chk-box">✓</span><span class="chk-txt">导出保留可选文字层 PDF</span></label>
+              <label class="todo-check-item"><input type="checkbox" /><span class="chk-box">✓</span><span class="chk-txt">拖动六点把手贴紧短词右端</span></label>
+            </div>
+            <p class="trial-foot">3.4.3 待办拖柄紧贴文字宽度，哪怕短词也能右拖摆正。</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="pop-marquee-wrap marquee-alt-pink" aria-hidden="true">
+        <div class="pop-marquee-track">
+          <span>✦ 可调双栏文献研读</span>
+          <span>✦ 一键汇编可 Ctrl+F 搜索 PDF</span>
+          <span>✦ 0 KB 手写隐私人脸绝不传云</span>
+          <span>✦ 高频词粒子 Vapor Type</span>
+          <span>✦ 四套源码级 WebGL 视差着色器</span>
+          <span>✦ 27 重水墨江湖字图</span>
+          <span>✦ 可调双栏文献研读</span>
+          <span>✦ 一键汇编可 Ctrl+F 搜索 PDF</span>
+          <span>✦ 0 KB 手写隐私人脸绝不传云</span>
+          <span>✦ 高频词粒子 Vapor Type</span>
+          <span>✦ 四套源码级 WebGL 视差着色器</span>
+          <span>✦ 27 重水墨江湖字图</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 5: 可拖拽并排分屏研读台 + 一键汇编生成器 + 0 KB 粒子矩阵 ==================== -->
+    <section id="act-offline" class="act-section act-night">
+      <div class="risograph-dots dots-mint"></div>
+      <div class="bg-geo-layer" aria-hidden="true">
+        <div class="radar-rings"><span></span><span></span><span></span></div>
+        <div class="float-geo geo-diamond-cyan" style="right:42px;top:165px"></div>
+      </div>
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-lime">ACT 05 · SPLIT READER, PDF COMPILER &amp; 0 KB LOCAL POWER</span>
+            <span class="tech-tag">DRAG SPLIT READER + ANNOTATION JUMP + VAPOR TYPE</span>
+          </div>
+          <div class="head-title-row">
+            <h2 class="section-title text-cream">可调双栏研读 × 一键汇编讲义 × 断网照样飙车的本机算力堡垒</h2>
+            <button type="button" class="brush-callout brush-mint brush-tilt-r pop-stamp-trigger" data-splash="#FF2A85">不传云!</button>
+          </div>
+        </div>
+
+        <!-- 小组件 6：交互式左文右注分屏研读与「点注回原文 / 汇编 PDF」演练台 -->
+        <div class="split-reader-toy pop-reveal">
+          <div class="split-pane-top">
+            <span class="pill-sticker pill-cobalt">LIVE SPLIT-STUDY // 拖动中轴滑条调整分屏比例 · 点右侧批注跳回原文</span>
+            <button id="compile-pdf-btn" type="button" class="tiny-reset-btn" style="background:#DCFF00">📑 一键汇编可搜新 PDF</button>
+          </div>
+          <div id="split-panes" class="split-panes">
+            <div id="split-left" class="split-left">
+              <h5>📄 Attention Is All You Need (原生横版 PDF 尺寸保留)</h5>
+              <p id="pdf-hl-1" class="pdf-block">[Page 3] Multi-Head Attention: Q·Kᵀ / √d_k — 允许模型同时关注不同表示子空间的信息。</p>
+              <p id="pdf-hl-2" class="pdf-block">[Page 5] Positional Encoding: PE(pos, 2i) = sin(pos / 10000^(2i/d)) — 注入序列相对位置信息。</p>
+            </div>
+            <div id="split-divider" class="split-divider" title="左右拖动调整分屏宽度">⋮</div>
+            <div class="split-right">
+              <h5>🗂️ 右侧批注与摘录抽屉</h5>
+              <button type="button" class="note-jump-btn" data-target="pdf-hl-1">📌 [批注 #1] 注意力缩放因子 √d_k 防梯度消失 ➔ <b>点此回原文 P.3</b></button>
+              <button type="button" class="note-jump-btn" data-target="pdf-hl-2">📌 [批注 #2] 三角函数编码正余弦性质证明 ➔ <b>点此回原文 P.5</b></button>
+              <div id="compile-progress-box" class="compile-progress-box">点击右上方「一键汇编」实时演示导出可 Ctrl+F 搜字的讲义 PDF！</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="study-stairs-grid">
+          <article class="stair-card s-blue pop-reveal" data-tilt-card>
+            <span class="pill-sticker pill-cobalt">STEP 01 // 原比例导入</span>
+            <h4>横版 PPT / Paper 绝不裁切</h4>
+            <div class="card-img-zoom" data-lightbox="./assets/pdf_intact.png" data-title="Step 01 · 原比例导入 PDF" data-desc="完整保留原生尺寸、横纵版式与可选文字层。">
+              <img src="./assets/pdf_intact.png" alt="PDF 原比例导入" /><span class="zoom-pill-float">🔍 放大</span>
+            </div>
+            <p>完整保留 PDF 原文件、横纵版式与文字层。</p>
+          </article>
+          <article class="stair-card s-pink pop-reveal" data-tilt-card>
+            <span class="pill-sticker pill-pink">STEP 02 // 抽屉 + 并排</span>
+            <h4>边看边抄，点字秒回原文</h4>
+            <div class="card-img-zoom" data-lightbox="./assets/annotations_ui.png" data-title="Step 02 · 批注与摘录抽屉" data-desc="右侧随时滑出整本批注索引，按页筛选一点回原文。">
+              <img src="./assets/annotations_ui.png" alt="批注抽屉与并排研读" /><span class="zoom-pill-float">🔍 放大</span>
+            </div>
+            <p>按页过滤批注，点一下跳回原本那一页。</p>
+          </article>
+          <article class="stair-card s-mint pop-reveal" data-tilt-card>
+            <span class="pill-sticker pill-mint">STEP 03 // 主动回忆卡</span>
+            <h4>点一下掀开遮挡块自测</h4>
+            <div class="occlusion-toy">
+              <div class="occ-formula">sin²θ + cos²θ = <button type="button" class="occlusion-tile">点击揭晓答案</button></div>
+              <div class="occ-formula">∫ f'(x) dx = <button type="button" class="occlusion-tile">点击揭晓推导</button></div>
+            </div>
+            <div class="card-img-zoom" data-lightbox="./assets/occlusion_ui.png" data-title="Step 03 · 遮挡块主动回忆" data-desc="盖住公式数字块自测，「未掌握 / 待复习 / 已掌握」三态流转。">
+              <img src="./assets/occlusion_ui.png" alt="图片遮挡自测" /><span class="zoom-pill-float">🔍 放大</span>
+            </div>
+          </article>
+          <article class="stair-card s-lime pop-reveal" data-tilt-card>
+            <span class="pill-sticker pill-ink">STEP 04 // 终极产出</span>
+            <h4>一键汇编可检索新 PDF</h4>
+            <div class="card-img-zoom" data-lightbox="./assets/tut_compilation.png" data-title="Step 04 · 汇编可检索讲义 PDF" data-desc="导出带来源页码与可选文字层的个人精编 PDF。">
+              <img src="./assets/tut_compilation.png" alt="可检索 PDF 汇编" /><span class="zoom-pill-float">🔍 放大</span>
+            </div>
+            <p>汇总批注截图与页码，本地直接导出新讲义。</p>
+          </article>
+        </div>
+
+        <div class="local-bunker-grid">
+          <div class="bunker-left pop-reveal">
+            <div class="zero-kb-hero" data-tilt-card>
+              <div id="zero-kb-counter" class="zero-big">0 KB</div>
+              <div>
+                <strong>手写与隐私绝不自动上传云端</strong>
+                <p>后台端侧队列识字：<strong>Android 随包识字</strong> · <strong>Apple Vision 本机运行</strong>。识别结果需亲眼核对错别字后再入检索库。</p>
+                <div class="local-circuit-bar" aria-hidden="true">
+                  <span>✍️ 笔迹</span>
+                  <svg class="local-circuit-svg" viewBox="0 0 180 18">
+                    <path d="M4,9 L176,9" stroke="rgba(18,17,22,0.2)" stroke-width="3" stroke-linecap="round"/>
+                    <path class="circuit-pulse" d="M4,9 L176,9" stroke="#1428FF" stroke-width="3.5" stroke-dasharray="18 22" stroke-linecap="round"/>
+                  </svg>
+                  <span>🔒 本机芯片 · 0 外发</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 小组件 7：毫秒全文检索 + 「一键回跳刚才那一页」微模拟器 -->
+            <div class="search-jump-widget">
+              <div class="sj-row">
+                <span>🔎 全本毫秒搜索：</span>
+                <button type="button" class="tiny-reset-btn sj-query-btn is-on" data-hit="P.18 · 傅里叶变换收斂条件 (OCR 手写命中)">傅里叶</button>
+                <button type="button" class="tiny-reset-btn sj-query-btn" data-hit="P.42 · 梯度下降推导 (PDF 原文命中)">梯度</button>
+                <button id="sj-return-btn" type="button" class="tiny-reset-btn" style="background:#DCFF00">↩ 一键回跳刚才 P.04</button>
+              </div>
+              <div id="sj-readout" class="sj-readout">命中：P.18 · 傅里叶变换收斂条件 (OCR 手写命中) · 原位置已钉书签</div>
+            </div>
+
+            <div class="bunker-subcards">
+              <div class="sub-white" data-tilt-card data-lightbox="./assets/tut_search.png" data-title="全本毫秒瞬搜 & 原位回跳" data-desc="串通书名、页标题、OCR 字与 PDF 原文；点中跳走后随时一键闪回刚才那页。">
+                <img src="./assets/tut_search.png" alt="全本毫秒瞬搜" />
+                <div><h4>全本毫秒搜 &amp; 原位回跳 🔍</h4><p>OCR 与 PDF 原文一键穿透直达。</p></div>
+              </div>
+              <div class="sub-cyan" data-tilt-card data-lightbox="./assets/tut_batch.png" data-title="多选全选批量分类" data-desc="搜出的几十本笔记直接全选批量塞进对应分类或收藏夹。">
+                <img src="./assets/tut_batch.png" alt="全选批量分类" />
+                <div><h4>多选全选批量贴标签 🔍</h4><p>几十本笔记全选秒归分类或收藏夹。</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bunker-vapor pop-reveal">
+            <div class="vapor-top">
+              <span class="pill-sticker pill-pink">VAPOR TYPE · 点词炸裂粒子重组</span>
+              <div class="vapor-pills">
+                <button type="button" class="vapor-word-btn is-active" data-word="灵感爆发">灵感爆发</button>
+                <button type="button" class="vapor-word-btn" data-word="水墨江湖">水墨江湖</button>
+                <button type="button" class="vapor-word-btn" data-word="高数必过">高数必过</button>
+                <button type="button" class="vapor-word-btn" data-word="端侧算力">端侧算力</button>
+              </div>
+            </div>
+            <div class="vapor-canvas-wrap"><canvas id="vapor-canvas" width="520" height="240"></canvas></div>
+            <div class="vapor-bottom">
+              <div class="vapor-phone-zoom" data-lightbox="./assets/vapor.png" data-title="Android 高频词 Vapor Type" data-desc="纯本地离线中文分词并过滤虚词纯数字，统计最高频 60 个词生成粒子汇聚特效。">
+                <img src="./assets/vapor.png" alt="Android Vapor Type 实机图" />
+              </div>
+              <p>点击上方词条或划过粒子场，亲眼见证本地前 60 高频核心概念聚散重组！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 6: 源码级 WebGL 4 大着色器壁纸 + 二十七重水墨江湖长卷 ==================== -->
+    <section id="act-jianghu" class="act-section act-white">
+      <div class="bg-geo-layer" aria-hidden="true">
+        <svg class="kinetic-gear gear-ink-ring" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="82" fill="none" stroke="#1428FF" stroke-width="3" stroke-dasharray="14 8 4 8" />
+          <circle cx="100" cy="100" r="62" fill="none" stroke="#FF1F7A" stroke-width="2.5" stroke-dasharray="6 10" />
+        </svg>
+        <div class="float-geo geo-seal-chop" style="right:26px;bottom:34px">墨</div>
+      </div>
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-pink">ACT 06 · REAL SCENE_*.FRAG SHADERS &amp; 27 INK SCENES</span>
+            <span class="tech-tag text-ink">PORTED FLUTTER FRAGMENT SHADERS · CLICK FOR WATER/INK BLOOM</span>
+          </div>
+          <div class="head-title-row">
+            <h2 class="section-title text-ink">直读源码的 4 套实时着色器壁纸 × 二十七重水墨江湖动态漫游</h2>
+            <button type="button" class="brush-callout brush-gold brush-tilt-l pop-stamp-trigger" data-splash="#1428FF">江湖!</button>
+          </div>
+        </div>
+
+        <div class="jianghu-grid">
+          <div id="gravity-stage" class="gravity-shaders-panel pop-reveal">
+            <div class="gravity-hdr">
+              <div>
+                <strong>WebGL 真实移植 scene_*.frag · 鼠标倾斜 + 点击涟漪/点墨</strong>
+                <p>在下方画框里晃动鼠标改变陀螺仪倾角，点击画面触发水波/散雾/弹出/金属滴！</p>
+              </div>
+              <div class="tilt-meter" title="虚拟重力偏转计"><span id="gravity-dot"></span></div>
+            </div>
+
+            <div class="shader-hero-viewport">
+              <canvas id="shader-webgl"></canvas>
+              <span id="shader-hero-label" class="shader-badge-float">AURORA 极光湖 (scene_aurora.frag 实时运行) · 点湖面激起水波</span>
+            </div>
+
+            <div class="shaders-4bar">
+              <button type="button" class="shader-pick is-active" data-sh="aurora"><img src="./assets/shader_aurora.png" alt="Aurora" /><span>极光湖</span></button>
+              <button type="button" class="shader-pick" data-sh="ink"><img src="./assets/shader_ink.png" alt="Ink" /><span>水墨山</span></button>
+              <button type="button" class="shader-pick" data-sh="papercut"><img src="./assets/shader_papercut.png" alt="Papercut" /><span>立体剪纸</span></button>
+              <button type="button" class="shader-pick" data-sh="chrome"><img src="./assets/shader_chrome.png" alt="Chrome" /><span>液态金属</span></button>
+            </div>
+          </div>
+
+          <div class="jianghu-gallery-panel pop-reveal">
+            <div class="jianghu-nav">
+              <button type="button" class="jianghu-tab is-active" data-jh="0">03 · 白衣少年 × 平地起白虹</button>
+              <button type="button" class="jianghu-tab" data-jh="1">08 · 墨影红眸</button>
+              <button type="button" class="jianghu-tab" data-jh="2">13 · 孤舟寒江</button>
+              <button type="button" class="jianghu-tab" data-jh="3">14 · 铁甲策马</button>
+            </div>
+
+            <div id="jianghu-frame" class="jianghu-stage-frame" data-tilt-card>
+              <img id="jianghu-main-img" src="./assets/jh_03.png" class="jh-kenburns" alt="水墨江湖主画卷" />
+              <img id="jianghu-seal-img" src="./assets/jh_03_gold.png" class="jh-seal-overlay" alt="瘦金体鎏金诗句字图" />
+              <span class="webgl-corner-tag" data-lightbox="./assets/jh_03.png" data-title="二十七重水墨江湖绘卷" data-desc="全部 Android 渠道与本地 IPA 同享完整 27 景（自带瘦金体与兰亭体高清字图，原字体软件不随包）。">🔍 放大鉴赏画卷</span>
+            </div>
+
+            <div class="jianghu-caption-box">
+              <p id="jianghu-caption">
+                <strong>场景 03 · 白衣少年：</strong>随画面缓慢呼吸推镜，鎏金瘦金体「平地起白虹」伴指尖视差微移（全渠道 Android 与本地 IPA 均携带全部 27 景字图，原字体软件不随包）。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 7: 四大剧本 + 实机彩蛋墙（300%滑杆/两设备替换/批量收纳/礼花） ==================== -->
+    <section id="act-personas" class="act-section act-lime">
+      <div class="risograph-dots dots-blue"></div>
+      <div class="bg-geo-layer" aria-hidden="true">
+        <div class="kinetic-seal-spin seal-act7">
+          <svg class="seal-star-bg" viewBox="0 0 100 100"><polygon points="50,3 63,34 97,34 69,55 80,88 50,68 20,88 31,55 3,34 37,34" fill="#00D1FF" stroke="#121116" stroke-width="2.5"/></svg>
+          <svg class="seal-text-ring" viewBox="0 0 200 200">
+            <defs><path id="tp-act7" d="M 32,100 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0"/></defs>
+            <text><textPath href="#tp-act7">★ ZERO ADS ★ CRC-32 + SHA-256 ★</textPath></text>
+          </svg>
+          <span class="seal-core">🔒</span>
+        </div>
+      </div>
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-cobalt">ACT 07 · PLAYBOOKS &amp; PLAYABLE CRAFT WIDGETS</span>
+            <span class="tech-tag text-ink">ANIMATED PERSONAS × LIVE ZOOM + 2-DEVICE RULE + BATCH ORGANIZER</span>
+          </div>
+          <h2 class="section-title text-ink">四大实战剧本切换 + 一整墙会动的产品小机关</h2>
+        </div>
+
+        <div class="personas-deck pop-reveal">
+          <div class="persona-tabs" role="tablist">
+            <button type="button" class="persona-tab is-active" data-persona="0">📚 01 · 考研 / 刷题党</button>
+            <button type="button" class="persona-tab" data-persona="1">🔬 02 · 科研 / 文献党</button>
+            <button type="button" class="persona-tab" data-persona="2">🎨 03 · 手账 / 书法控</button>
+            <button type="button" class="persona-tab" data-persona="3">🔒 04 · 断网 / 隐私派</button>
+          </div>
+          <div id="persona-panel" class="persona-body-grid">
+            <div class="persona-text">
+              <span id="p-badge" class="pill-sticker pill-cobalt">PERSONA 01 · 原卷多轮刷题，二刷改标绝不伤字</span>
+              <h3 id="p-title">一轮画重点，二轮一键抹荧光 + 遮挡卡通勤背公式</h3>
+              <ul id="p-list">
+                <li>导入真题 PDF 原卷，一轮用黄荧光画重点，二轮开 Android「仅擦荧光」秒抹旧标记，打印墨迹稳如泰山。</li>
+                <li>给易错推导题直接盖上「数字遮挡块」，地铁掏出手机点按揭晓，三态自测「未掌握 / 已掌握」。</li>
+              </ul>
+            </div>
+            <div class="persona-visual" data-tilt-card>
+              <img id="p-img" src="./assets/tut_marker_eraser.png" alt="场景实拍图" />
+              <button id="persona-zoom-btn" type="button" class="pop-zoom-pill">🔍 查看实机截图</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-easter-grid">
+          <div class="easter-celebration pop-reveal" data-tilt-card>
+            <img src="./assets/tut_celebration.png" alt="恭喜 Pro 已开通全屏礼花实机图" class="celebrate-phone" data-lightbox="./assets/tut_celebration.png" data-title="Android 解锁瞬间彩带庆祝" data-desc="当支付核验权益真实变更时触发的全屏 200 片彩色纸屑与温柔祝贺弹窗。" />
+            <div>
+              <span class="pill-sticker pill-lime">DETAIL 01 · 200 片礼花庆典</span>
+              <h3>真实开通瞬间的彩带雨</h3>
+              <p>Android 核验权益生效瞬间屏幕炸开彩色纸屑与「恭喜，Pro 已开通」温柔弹窗。</p>
+              <button id="trigger-celebration-btn" type="button" class="cta-pop cta-ink">🎉 点我模拟一次会员礼花！</button>
+            </div>
+          </div>
+
+          <div class="easter-mini-cards">
+            <!-- 无级缩放 + 100% 复位玩具 -->
+            <article class="easter-card card-cyan pop-reveal">
+              <div class="zoom-reset-toy">
+                <div id="zoom-toy-stage" class="zoom-toy-stage"><span id="zoom-toy-ink" class="zoom-toy-ink">微草落笔</span></div>
+                <div class="zoom-toy-btns">
+                  <button id="btn-zoom-300" type="button" class="tiny-reset-btn">放大到 300%</button>
+                  <button id="btn-zoom-100" type="button" class="tiny-reset-btn" style="background:#DCFF00">100% · 复位</button>
+                </div>
+              </div>
+              <div>
+                <span class="badge-mini badge-ink">DETAIL 02 · 100% 一键复位 + 零广告</span>
+                <h4>写微草放大 300%，点右上胶囊一秒弹正</h4>
+                <p>拒绝开屏摇一摇与信息流打扰，哪怕会员到期也能永远流畅阅读写下的内容。</p>
+              </div>
+            </article>
+
+            <!-- 双设备替换模拟 + CRC-32/SHA-256 + 封底 -->
+            <article class="easter-card card-tomato pop-reveal">
+              <div class="checksum-toy">
+                <img src="./assets/back_ui.png" alt="360度封底定制界面" data-lightbox="./assets/back_ui.png" data-title="360° 封底独立设计" data-desc="正面封面、竖排书脊与封底徽标整套协同设计，放置三维书架处处经得起端详。" />
+              </div>
+              <div style="flex:1">
+                <span class="badge-mini badge-cream">DETAIL 03 · 封底 + 两设备离线许可 + 双校防损</span>
+                <h4>原子打包校验 + 第 3 设备安全替换机制</h4>
+                <div class="device-slots-row">
+                  <span id="dev-slot-1" class="dev-slot">💻 iPad Pro</span>
+                  <span id="dev-slot-2" class="dev-slot">📱 MatePad 11</span>
+                  <button id="btn-swap-dev" type="button" class="tiny-reset-btn">+ 模拟登录第 3 台</button>
+                </div>
+                <p style="margin-top:6px"><button id="btn-sim-verify" type="button" class="tiny-reset-btn" style="background:#DCFF00">▶ 演练 CRC-32 + SHA-256 校准</button></p>
+                <div id="verify-readout" class="verify-readout">双设备离线可用 · 原稿字节与双哈希受保护</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACT 7B: 透明定价糖果架 & 发行版图 ==================== -->
+    <section id="act-plans" class="act-section act-lilac">
+      <div class="container">
+        <div class="section-head">
+          <div class="head-meta">
+            <span class="pill-sticker pill-pink">PLANS &amp; OFFICIAL DISTRIBUTION</span>
+            <span class="tech-tag text-ink">CLEAR PRICING × GITEE SIGNED CHANNEL</span>
+          </div>
+          <h2 class="section-title text-ink">像挑糖果一样清晰的订阅档位 · 绝不跟你的笔记玩捉迷藏</h2>
+        </div>
+
+        <div class="pricing-shelf">
+          <div class="tier-card card-cream pop-reveal" data-tilt-card><span class="tier-name">体验尝鲜 · 免费</span><strong class="tier-price text-cobalt">¥0</strong><div class="tier-rule">5 本 / 单本 15 页</div><div class="tier-cloud">云空间：无（纯本机）</div><p>零负担体验真实 3D 翻页、核心质感笔刷与全部手写体验。</p></div>
+          <div class="tier-card card-cyan pop-reveal" data-tilt-card><span class="tier-name">轻量随记 · Go</span><strong class="tier-price text-ink">¥1.99</strong><div class="tier-rule">9 本 / 单本 25 页</div><div class="tier-cloud">云空间：无</div><p>扩展日常手账与通勤灵感草稿本机额度。</p></div>
+          <div class="tier-card tier-pro card-lime pop-reveal" data-tilt-card>
+            <span class="pro-orbit-burst" aria-hidden="true"></span>
+            <span class="badge-mini badge-pink">MOST POPULAR ★</span><span class="tier-name">性价比之王 · Pro</span><strong class="tier-price text-tomato">¥4.99</strong><div class="tier-rule">10 本 / 单本 25 页</div><div class="tier-cloud text-tomato">30 MiB 核验云空间</div><p>开启加密跨端核验备份空间，学生党主力之选！</p>
+          </div>
+          <div class="tier-card card-tomato pop-reveal" data-tilt-card><span class="tier-name">进阶研读 · MAX</span><strong class="tier-price text-ink">¥8.99</strong><div class="tier-rule">15 本 / 单本 35 页</div><div class="tier-cloud">100 MiB 云空间</div><p>轻松装下多门重度专业课与大量原比例文献 PDF。</p></div>
+          <div class="tier-card card-pink pop-reveal" data-tilt-card><span class="tier-name text-cream">终极满血 · Ultra</span><strong class="tier-price text-lime">¥19.99</strong><div class="tier-rule text-cream">本数 / 页数全无上限</div><div class="tier-cloud text-lime">300 MiB 云空间</div><p class="text-cream">彻底打破边界限制，构筑跨十年的个人数字图书馆。</p></div>
+        </div>
+
+        <div class="parity-row">
+          <div class="parity-box box-cobalt pop-reveal" data-tilt-card>
+            <span class="pill-sticker pill-lime">ANDROID · v3.4.3+63（全量核心特性）</span>
+            <p>完整实装 4 套三维书架（含 3D 轮盘弧线与 ∞ 莫比乌斯纸带）、仅擦荧光橡皮、Vapor 高频词及随包本机中文图像 OCR。Android 公共更新<strong>唯一通过 Gitee（the-riverwq/x-notes-releases）</strong> 读取原公钥签名 <code>latest-gitee.json</code> 分发核验原证书 APK。</p>
+          </div>
+          <div class="parity-box box-cream pop-reveal" data-tilt-card>
+            <span class="pill-sticker pill-cobalt">iOS / iPadOS · IPA56 + 隐私原则</span>
+            <p>对齐核心 3D 翻页、3 大封皮实时着色、360° 造物、3.4.3 内页字库、Split View 分屏与 Apple Vision 端侧识字，签发本地 AltStore IPA。默认不启用云端自动识字；支持无网络离线验证许可与单账号两台设备上限。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FINALE ==================== -->
+    <section class="act-finale">
+      <div class="risograph-dots dots-lime"></div>
+      <svg class="finale-sunburst-back" viewBox="0 0 1200 620" aria-hidden="true">
+        <polygon points="600,0 648,140 790,32 768,175 935,108 860,242 1045,232 924,335 1100,390 936,445 1060,552 885,535 950,620 770,562 760,620 600,535 440,620 430,562 250,620 315,535 140,552 264,445 100,390 276,335 155,232 340,242 265,108 432,175 410,32 552,140"
+                 fill="#DCFF00" stroke="#121116" stroke-width="5" stroke-linejoin="round" />
+      </svg>
+      <svg class="finale-sunburst" viewBox="0 0 1200 620" aria-hidden="true">
+        <polygon points="600,15 665,112 785,42 795,158 940,126 895,240 1055,260 955,348 1095,418 955,468 1030,582 885,556 885,610 735,590 660,620 600,560 540,620 465,590 315,610 315,556 170,582 245,468 105,418 245,348 145,260 305,240 260,126 405,158 415,42 535,112"
+                 fill="#FF1F7A" stroke="#121116" stroke-width="5" stroke-linejoin="round" />
+      </svg>
+
+      <div class="container finale-inner">
+        <div class="finale-badge-top"><span class="pill-sticker pill-lime">THANK YOU FOR EXPLORING X NOTES</span></div>
+        <div class="finale-callig-duo">
+          <button type="button" class="brush-callout brush-finale-main pop-stamp-trigger" data-splash="#3BFFA8">落笔有神!</button>
+          <button type="button" class="brush-callout brush-finale-sub pop-stamp-trigger" data-splash="#DCFF00">灵感永不离线</button>
+        </div>
+        <h2 class="finale-headline">X notes — 让每次落笔，都值得珍藏！</h2>
+        <p class="finale-sub">献给所有不肯向平庸白板妥协、热爱纸墨触感与独立思考的人。</p>
+        <div class="finale-actions">
+          <button id="finale-fireworks-btn" type="button" class="cta-pop cta-lime magnetic-btn">🎆 再放一场全屏彩带狂欢</button>
+          <button id="back-top-btn" type="button" class="cta-pop cta-cream magnetic-btn">🚀 火箭弹回 3D 翻页书本 ↑</button>
+        </div>
+        <p class="finale-credits">PORTED REAL SHADERS &amp; BOOK PAINTERS · X NOTES v3.4.3+63 · 27 SCENES · ZERO AD NOISE</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="./vendor/three.min.js"></script>
+  <script src="./vendor/gsap.min.js"></script>
+  <script src="./vendor/ScrollTrigger.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
